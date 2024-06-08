@@ -22,7 +22,7 @@ class AccountController:
         return account.get_balance_account()
 
    def deposit(self, account, amount):
-        account.deposit(amount)
+        account.set_deposit(amount)
 
    def withdraw(self, account, amount):
         account.withdraw(amount)

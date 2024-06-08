@@ -11,7 +11,8 @@ class ConsoleView:
         print("1. Ver saldo")
         print("2. Fazer depósito")
         print("3. Fazer retirada")
-        print("4. Sair")
+        print("4. Consultar usuarios")
+        print("5. Sair")
 
     def get_option_choice(self):
         return input("Opção: ").strip()
