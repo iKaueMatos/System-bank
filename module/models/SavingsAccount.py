@@ -1,7 +1,6 @@
 from module.models.AccountBank import AccountBank
-from module.models.IAccount import IAccount
+from module.interface.IAccount import IAccount
 from module.service.EmailService import EmailService
-
 
 class SavingsAccount(AccountBank, IAccount):
     def __init__(self, email_service= None,
@@ -12,7 +11,8 @@ class SavingsAccount(AccountBank, IAccount):
                  agency: int = None,
                  balance: float = None,
                  state: str = None,
-                 interest_rate: float = None) -> None:
+                 interest_rate: float = 0.0
+    ) -> None:
         super().__init__(name, lastname, age, numberAccount, agency, balance, state)
         self.__interest_rate = interest_rate
         self.email_service = email_service if email_service is not None else EmailService()
@@ -42,15 +42,15 @@ class SavingsAccount(AccountBank, IAccount):
         self.email = input("Digite seu e-mail: ")
 
     def validate_bank_account_creation_data(self) -> str:
-        base_validation = super()._AccountBank__validateBankAccountCreationData()
+        base_validation = super().validate_bank_account_creation_data()
         if base_validation != "Usuário válido!":
             return base_validation
-        if self.__interest_rate <= 0:
+        if self.__interest_rate <= 0.0:
             return "A taxa de juros deve ser maior que zero para a conta poupança."
         return "Usuário válido!"
 
     def validate_creation_data_user(self) -> str:
-        base_validation = super()._AccountBank__validateCreationDataUser()
+        base_validation = super().validate_creation_data_user()
         if base_validation != "Usuário válido!":
             return base_validation
         return "Usuário válido!"
@@ -105,3 +105,21 @@ class SavingsAccount(AccountBank, IAccount):
 
     def get_deposit(self) -> float:
         return self.balance
+
+    def set_number_account(self, number_account) -> None:
+        self.numberAccount = number_account
+
+    def get_number_account(self) -> int:
+        return self.numberAccount
+    
+    def set_agency(self, agency):
+        self.agency = agency
+        
+    def get_agency(self) -> int:
+        return self.agency
+    
+    def set_name(self, name):
+        self.name = name
+        
+    def get_name(self) -> str:
+        return self.name
